@@ -42,7 +42,7 @@ public class AutoRunWeb {
         } else if (osName.toLowerCase().startsWith("linux")) {
             command = "open " + url;
         } else if (osName.toLowerCase().startsWith("windows")) {
-            command = "start " + url;
+            command = "cmd /c start " + url;
         }
         return command;
     }
