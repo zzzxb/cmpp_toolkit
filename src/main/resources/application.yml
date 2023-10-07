@@ -1,0 +1,9 @@
+server:
+  port: 23107
+
+
+spring:
+  thymeleaf:
+    check-template: false
+    mode: HTML
+    prefix: classpath:/templates/
