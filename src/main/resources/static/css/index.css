@@ -1,4 +1,42 @@
+body{
+    background: aliceblue;
+}
+
 p {
-    border: 1px solid black;
     padding: 3px;
+    font-size: 18px;
+}
+
+#bootstrap_button {
+    height: 32px;
+    width: 90px;
+    border: 1px solid black;
+    font-size: 16px;
+    background: white;
+}
+
+#input_host, #input_port {
+    padding: 0;
+    height: 30px;
+    border: 1px solid black;
+    font-size: 16px;
+    background: white;
+}
+
+#bootstrap_button:hover {
+    background: whitesmoke;
+}
+
+#console_out {
+    margin: 3em auto;
+    width: 80%;
+    height: 25em;
+}
+
+#console_out>textarea {
+    border: 1px solid black;
+    width: 99%;
+    height: 99%;
+    font-size: 14px;
+    resize: none;
 }

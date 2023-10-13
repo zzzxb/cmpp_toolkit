@@ -6,10 +6,29 @@
           href="../static/css/index.css" th:href="@{/css/index.css}" />
     <title>CMPP ToolKit</title>
 </head>
-<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-<script th:src="@{/js/index.js}"></script>
+<script src="../static/js/jquery-3.7.1.min.js" th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script src="../static/js/axios.min.js" th:src="@{/js/axios.min.js}"></script>
+<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
 
 <body>
-    <p th:text="${welcome}" onclick="ck()"/>
+<div>
+    <div>
+        <p style="text-align: center">cmpp connection toolkit</p>
+    </div>
+
+    <div style="text-align: center">
+        <label for="input_host">HOST</label>
+        <input id="input_host" type="text" >
+
+        <label for="input_port">PORT</label>
+        <input id="input_port" type="text" >
+
+        <button id="bootstrap_button" type="button" onclick="bootstrap()">启动</button>
+    </div>
+
+    <div id="console_out">
+        <textarea disabled>welcome to cmpp connection toolkit</textarea>
+    </div>
+</div>
 </body>
 </html>
