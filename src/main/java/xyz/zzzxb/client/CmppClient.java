@@ -10,6 +10,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import xyz.zzzxb.client.handler.WelcomeHandler;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -31,7 +34,7 @@ public class CmppClient {
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
-
+                    socketChannel.pipeline().addFirst(new WelcomeHandler());
                 }
             });
 
@@ -42,6 +45,5 @@ public class CmppClient {
         } finally {
             workerGroup.shutdownGracefully();
         }
-
     }
 }
