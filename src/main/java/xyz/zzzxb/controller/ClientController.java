@@ -20,8 +20,7 @@ public class ClientController {
             CmppClient cmppClient = new CmppClient();
             cmppClient.bootstrap(dto.getHost(), dto.getPort());
         }catch (Exception e) {
-            e.printStackTrace();
-            return "fail";
+            return e.getMessage();
         }
         return "ok";
     }

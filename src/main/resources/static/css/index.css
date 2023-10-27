@@ -1,4 +1,4 @@
-body{
+body {
     background: aliceblue;
 }
 
@@ -24,7 +24,7 @@ p {
 }
 
 #bootstrap_button:hover {
-    background: whitesmoke;
+    background: seagreen;
 }
 
 #console_out {
@@ -33,7 +33,7 @@ p {
     height: 25em;
 }
 
-#console_out>textarea {
+#console_out > textarea {
     border: 1px solid black;
     width: 99%;
     height: 99%;

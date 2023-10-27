@@ -31,6 +31,7 @@ public class CmppClient {
             b.group(workerGroup);
             b.channel(NioSocketChannel.class);
             b.option(ChannelOption.SO_KEEPALIVE, true);
+            b.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 6);
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
