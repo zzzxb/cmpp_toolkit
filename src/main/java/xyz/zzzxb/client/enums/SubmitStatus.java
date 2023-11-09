@@ -62,7 +62,7 @@ public enum SubmitStatus {
             case 13:
                 return DEST_TERMINAL_ID_FAIL.desc;
             default:
-                throw new IllegalStateException("Unexpected value: " + code);
+                return "Unexpected value: " + code;
         }
     }
 }

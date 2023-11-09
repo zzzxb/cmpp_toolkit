@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import xyz.zzzxb.client.enums.CommandId;
 import xyz.zzzxb.client.enums.SubmitStatus;
+import xyz.zzzxb.client.pojo.HeaderInfo;
 import xyz.zzzxb.client.pojo.Message;
 import xyz.zzzxb.client.util.TCPUtils;
 
@@ -75,11 +76,17 @@ public class SubmitHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ByteBuf buf = (ByteBuf) msg;
-        long msgId = buf.readLong();
-        byte result = buf.readByte();
-        String desc = SubmitStatus.getDesc(result);
-        log.info("submit resp -> msgId: {} result: {} desc: {}", msgId, result, desc);
+        ByteBuf buf = ((ByteBuf) msg).copy();
+        HeaderInfo headerInfo = TCPUtils.readHeader(buf);
+        if (CommandId.CMPP_SUBMIT_RESP.eqCommand(headerInfo.getCommandId())) {
+            String msgId = TCPUtils.formatMsgId(buf.readLong());
+            byte result = buf.readByte();
+            String desc = SubmitStatus.getDesc(result);
+            log.info("submit resp -> msgId: {} result: {} desc: {}", msgId, result, desc);
+            ctx.fireChannelActive();
+        } else {
+            ctx.fireChannelRead(msg);
+        }
     }
 
     @Override

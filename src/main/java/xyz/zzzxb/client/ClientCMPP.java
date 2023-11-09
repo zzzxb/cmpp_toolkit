@@ -22,8 +22,8 @@ public class ClientCMPP {
 
     public static void main(String[] args) {
         message.setAccountInfo(new AccountInfo()
-                .address("10.10.183.196", 28001)
-                .account("testms", "3l6v72o"))
+                .address("10.10.183.196", 27001)
+                .account("umccms", "umcc2022"))
                 .setPhone("15136858562")
                 .setContent("【联动优势】短信内容");
 

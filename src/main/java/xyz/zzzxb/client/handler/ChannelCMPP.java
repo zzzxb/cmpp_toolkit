@@ -19,6 +19,7 @@ public class ChannelCMPP extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         socketChannel.pipeline()
                 .addLast(new LoginHandler(message))
-                .addLast(new SubmitHandler(message));
+                .addLast(new SubmitHandler(message))
+                .addLast(new DeliveredHandler());
     }
 }

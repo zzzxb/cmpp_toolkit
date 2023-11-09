@@ -39,12 +39,16 @@ public enum CommandId {
     CMPP_GET_MO_ROUTE_RESP(0x80000017, "获取MO路由请求应答"),
     ;
 
-    private final int code;
+    private final Integer code;
     private final String desc;
 
     CommandId(int code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    public boolean eqCommand(Integer code) {
+        return Integer.toHexString(code).equals(Integer.toHexString(this.getCode()));
     }
 
     public int getCode() {

@@ -10,10 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import xyz.zzzxb.client.enums.CommandId;
 import xyz.zzzxb.client.enums.LoginStatus;
+import xyz.zzzxb.client.pojo.HeaderInfo;
 import xyz.zzzxb.client.pojo.Message;
 import xyz.zzzxb.client.util.TCPUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * zzzxb
@@ -54,19 +56,22 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        ByteBuf buf = (ByteBuf) msg;
-
-        if (!message.getAtomicBoolean().get()) {
-            // 请求头 12 字节 - 丢弃不检查了
-            buf.skipBytes(12);
+        ByteBuf buf = ((ByteBuf) msg).copy();
+        // 请求头 12 字节 - 丢弃不检查了
+        HeaderInfo headerInfo = TCPUtils.readHeader(buf);
+        if (CommandId.CMPP_CONNECT_RESP.eqCommand(headerInfo.getCommandId())) {
             // 消息体 4 字节 - 登录状态
             byte status = buf.readByte();
-            message.getAtomicBoolean().compareAndSet(false, status == LoginStatus.SUCCESS.getCode());
-            log.info("log resp -> status: {}, desc: {}", status, LoginStatus.getDesc(status));
-            ctx.fireChannelActive();
-        }
 
-        ctx.fireChannelRead(msg);
+            log.info("log resp -> status: {}, desc: {}", status, LoginStatus.getDesc(status));
+            if (status == LoginStatus.SUCCESS.getCode()) {
+                ctx.fireChannelActive();
+            } else {
+                throw new RuntimeException("登录失败");
+            }
+        } else {
+            ctx.fireChannelRead(msg);
+        }
     }
 
     @Override
